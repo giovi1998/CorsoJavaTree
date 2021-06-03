@@ -18,7 +18,7 @@ public class CercaParole {
 
         }
 
-        String parola = "ciao";
+        String parola = "hsma";
 
         System.out.println("parola cercata " + parola + " è stata trovata ? "+ cercaParole(matriceDiParole, parola.toCharArray()));
 
@@ -44,6 +44,15 @@ public class CercaParole {
         {
 
             if(cercaInVerticale(matriceDiParole, parola) || cercaInVerticale(matriceDiParole, reverseString(parola)))
+
+                return true;
+
+        }
+
+        if(parola.length <= matriceDiParole.length)
+        {
+
+            if(diagonaleDaDestraToSinistra(matriceDiParole, parola) || diagonaleDaDestraToSinistra(matriceDiParole, reverseString(parola)))
 
                 return true;
 
@@ -147,6 +156,93 @@ public class CercaParole {
             reverse[i] += primaParola[primaParola.length - i - 1];
 
         return reverse;
+
+    }
+    public static boolean diagonaleDaDestraToSinistra(char[][] matriceDiParole, char[] parola){
+
+        int colonneValide = matriceDiParole.length - parola.length;
+        int righeValide = matriceDiParole[0].length - parola.length;
+
+        int countLettere = 0;
+        int indiceDiagonale = 0;
+
+        for(int i = 0; i < colonneValide; i++){
+
+            indiceDiagonale = i;
+
+            for(int j = 0; j < matriceDiParole.length; j++){
+
+
+                if(indiceDiagonale == matriceDiParole.length)
+
+                    break;
+
+
+
+                if(matriceDiParole[indiceDiagonale][j] == parola[countLettere]){
+                    System.out.println(matriceDiParole[indiceDiagonale][j]);
+                    indiceDiagonale++;
+
+                    countLettere++;
+
+                }
+
+                else {
+
+                    indiceDiagonale++;
+                    countLettere = 0;
+                    continue;
+                }
+
+                if(countLettere == parola.length - 1){
+
+                    return true;
+
+                }
+
+            }
+
+        }
+
+        countLettere = 0;
+
+        for(int i = 0; i < righeValide; i++){
+
+            for(int j = 1; j < matriceDiParole.length; j++){
+
+                if(indiceDiagonale == matriceDiParole.length)
+
+                    break;
+
+
+
+                if(matriceDiParole[indiceDiagonale][j] == parola[countLettere]){
+                    System.out.println(matriceDiParole[indiceDiagonale][j]);
+                    indiceDiagonale++;
+
+                    countLettere++;
+
+                }
+
+                else {
+
+                    indiceDiagonale++;
+                    countLettere = 0;
+                    continue;
+                }
+
+                if(countLettere == parola.length - 1){
+
+                    return true;
+
+                }
+
+            }
+
+
+        }
+
+        return false;
 
     }
 
