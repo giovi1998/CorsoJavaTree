@@ -1,5 +1,5 @@
 # CorsoJavaTree
-<img src="treeschool_header.png" height="100"> 
+<img src="treeschool_header.png"> 
 
 Di 240 ore cose utili:
 
