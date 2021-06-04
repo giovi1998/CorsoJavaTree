@@ -5,6 +5,7 @@ import java.util.*;
 public class Labirinto {
 
     public static void main(String[] args) {
+
         char[][] labyrinth = InizializzazioneMatrice();
         int[] PosizioneP = PosizioneP(labyrinth);
         int IndexPI = PosizioneP[0];
@@ -143,16 +144,7 @@ public class Labirinto {
     //crea MappaGioco
     public static char[][] creaMappaGioco(int dim) {
         Random rand = new Random();
-        System.out.println("inserisci difficoltà giocatore!! 1 facile 2 medio 3 difficile");
-        Scanner scan = new Scanner(System.in);
-        int numDifficoltà = scan.nextInt();
-
-        if(numDifficoltà>3 ||numDifficoltà<1){
-            System.out.println("Hai sbagliato qualcosa rinserisci difficoltà!!");
-            return creaMappaGioco(dim);
-        }
-
-        String lettereSostitute = settaDifficolta(numDifficoltà);
+        String lettereSostitute = settaDifficolta();
         int indiceRandomicoRigaP = rand.nextInt(dim);
         int indiceRandomicoRigaE = rand.nextInt(dim);
         int indiceRandomicoColonnaE = rand.nextInt(dim);
@@ -182,33 +174,79 @@ public class Labirinto {
                     vettoreRis[i][j] = 'E';
                     continue;
                 }
+
+
+                assert lettereSostitute != null;
                 vettoreRis[i][j] = lettereSostitute.charAt(rand.nextInt(lettereSostitute.length()));
             }
         }
-
+        //dopo creazione se il pc non riesce a risolverla rifalla
+        if (!spostaAutomatico(vettoreRis, PosizioneP(vettoreRis))) {
+            System.out.println("calcolando...");
+            return creaMappaGioco(dim);
+        }
         return vettoreRis;
     }
+    /**
+     * metodo ricorsivo che permette la risoluzione automatica
+     *
+     * @param originalMatrice .
+     * @param nuovaPosizione .
+     * @return vero se ha trovato la 'E'
+     * svolta Da daniele modificata
+     */
+    public static boolean spostaAutomatico(char[][] originalMatrice, int[] nuovaPosizione) {
 
-    public static String settaDifficolta(int num){
+        char [][] copiaMatrice=copiaMatrice(originalMatrice);
+        if (nuovaPosizione[0] < copiaMatrice.length && nuovaPosizione[1] < copiaMatrice[0].length && nuovaPosizione[0] >= 0 && nuovaPosizione[1] >= 0) {
+            if (copiaMatrice[nuovaPosizione[0]][nuovaPosizione[1]] == 'W')
+                return false;
+            if (copiaMatrice[nuovaPosizione[0]][nuovaPosizione[1]] == '/') {
+                return false;
+            }
+            if (copiaMatrice[nuovaPosizione[0]][nuovaPosizione[1]] == 'E') return true;
+            copiaMatrice[nuovaPosizione[0]][nuovaPosizione[1]] = '/';
+            if (spostaAutomatico(copiaMatrice, new int[]{nuovaPosizione[0] + 1, nuovaPosizione[1]}))
+                return true;
+            if (spostaAutomatico(copiaMatrice, new int[]{nuovaPosizione[0] - 1, nuovaPosizione[1]}))
+                return true;
+            if (spostaAutomatico(copiaMatrice, new int[]{nuovaPosizione[0], nuovaPosizione[1] + 1}))
+                return true;
+            if (spostaAutomatico(copiaMatrice, new int[]{nuovaPosizione[0], nuovaPosizione[1] - 1}))
+                return true;
+            copiaMatrice[nuovaPosizione[0]][nuovaPosizione[1]] = '-';
+        } else return false;
+        return false;
+    }
+
+
+    //in Java se non usi questo vai a sovrascrivere ma tu non vuoi !! in questo modo vai a copiare e restituire la matrice
+    public static char [][] copiaMatrice(char[][] originalMatrice)
+    {
+        char[][] res = new char[originalMatrice.length][];
+        for (int i = 0; i < originalMatrice.length; i++)
+            res[i] = originalMatrice[i].clone();
+        return res;
+    }
+    public static String settaDifficolta(){
+        System.out.println("inserisci difficoltà giocatore!! 1 facile 2 medio 3 difficile");
+        Scanner scan = new Scanner(System.in);
+        int num = scan.nextInt();
 
 
         if(num==3){
 
-           String difficoltà="W--";
-            return difficoltà;
-        }
-        if(num==2){
+            return "W-";
+        }else if(num==2){
 
-          String  difficoltà="W---";
-            return difficoltà;
+            return "W--";
+        }else if(num==1){
+
+           return "W---";
+        }else{
+            return settaDifficolta();
         }
 
-        if(num==1){
-
-           String difficoltà="W----";
-            return difficoltà;
-        }
-        return null;
     }
 
     public static int[] PosizioneP(char[][] labyrinth) {
