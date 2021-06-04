@@ -5,41 +5,50 @@ import java.util.*;
 public class Labirinto {
 
     public static void main(String[] args) {
-        char[][] labyrinth = new char[5][5];
-        labyrinth = InizializzazioneMatrice(labyrinth);
-
-
-        StampaMatrix(labyrinth);
-
-        //System.out.println("posizione P" + Arrays.toString(PosizioneP(labyrinth)));
-
-
-        //muoversi
-        while (!CondizioneVittoria(labyrinth)) {
-            labyrinth = MuoviPersonaggio(labyrinth);
-            if (CondizioneVittoria(labyrinth)) {
-                System.out.println("HAI VINTO!!!");
-                break;
-            }
-            // System.out.println("Condizione di vittoria " + CondizioneVittoria(labyrinth) );
-
-            StampaMatrix(labyrinth);
-
-        }
+        char[][] labyrinth = InizializzazioneMatrice();
         int[] PosizioneP = PosizioneP(labyrinth);
         int IndexPI = PosizioneP[0];
         int IndexPJ = PosizioneP[1];
         int[] PosizioneE = PosizioneE(labyrinth);
         int IndexEI = PosizioneE[0];
         int IndexEJ = PosizioneE[1];
+        System.out.println("Posizione P " +IndexPI + "," +IndexPJ );
+        System.out.println("Posizione E " +IndexEI + "," +IndexEJ );
+
+        StampaMatrix(labyrinth);
+
+        //muoversi
+        while (!CondizioneVittoria(labyrinth)) {
+            MuoviPersonaggio(labyrinth);
+            if (CondizioneVittoria(labyrinth)) {
+                System.out.println("HAI VINTO!!!");
+                break;
+            }
+            PosizioneP = PosizioneP(labyrinth);
+            IndexPI = PosizioneP[0];
+            IndexPJ = PosizioneP[1];
+            PosizioneE = PosizioneE(labyrinth);
+            IndexEI = PosizioneE[0];
+            IndexEJ = PosizioneE[1];
+            System.out.println("Posizione P " +IndexPI+ "," +IndexPJ );
+            System.out.println("Posizione E " +IndexEI+ "," +IndexEJ );
+            StampaMatrix(labyrinth);
+
+        }
+        PosizioneP = PosizioneP(labyrinth);
+        IndexPI = PosizioneP[0];
+        IndexPJ = PosizioneP[1];
+        PosizioneE = PosizioneE(labyrinth);
+        IndexEI = PosizioneE[0];
+        IndexEJ = PosizioneE[1];
         labyrinth[IndexPI][IndexPJ] = 'E';
         labyrinth[IndexEI][IndexEJ] = 'P';
         StampaMatrix(labyrinth);
     }
 
     public static void StampaMatrix(char[][] labyrinth) {
-        for (int i = 0; i < labyrinth.length; i++) {
-            System.out.println(Arrays.toString(labyrinth[i]));
+        for (char[] chars : labyrinth) {
+            System.out.println(Arrays.toString(chars));
         }
     }
 
@@ -56,20 +65,16 @@ public class Labirinto {
                 //scambia
                 return true;
             }
-            if (IndexPJ == IndexEJ - 1) //sinistra
-            {
-                return true;
-            }//&& ((IndexPI==IndexEI+1) || (IndexPI==IndexEI-1)))
-            return false;
+            //sinistra
+            //&& ((IndexPI==IndexEI+1) || (IndexPI==IndexEI-1)))
+            return IndexPJ == IndexEJ - 1;
         } else if (IndexPJ == IndexEJ) {
             if ((IndexPI == IndexEI + 1)) {//giu
 
                 return true;
             }
-            if (IndexPI == IndexEI - 1) //su
-            {
-                return true;
-            }
+            //su
+            return IndexPI == IndexEI - 1;
 
         }
 
@@ -77,26 +82,40 @@ public class Labirinto {
     }
 
 
-    public static char[][] InizializzazioneMatrice(char[][] labyrinth) {
-        for (int i = 0; i < labyrinth.length; i++) {
-            for (int j = 0; j < labyrinth[0].length; j++) {
+    public static char[][] InizializzazioneMatrice() {
 
-                labyrinth[i][j] = '-';
+
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Salve Giocatore scegli!! Prova ad uscire dal mio labirinto");
+        System.out.println("Giocatore scegli quale mappa giocare: 1(predefinita) 2(generata casualmente) ");
+        int scelta = scan.nextInt();
+        if (scelta == 2) {
+            System.out.println("Inserisci dimensione mappa che vuoi giocare ");
+            int dim = scan.nextInt();
+            return creaMappaGioco(dim);
+        } else if (scelta == 1) {
+            char[][] labyrinth = new char[5][5];
+            for (int i = 0; i < labyrinth.length; i++) {
+                for (int j = 0; j < labyrinth[0].length; j++) {
+
+                    labyrinth[i][j] = '-';
+                }
             }
+            labyrinth[0][2] = 'W';
+            labyrinth[0][3] = 'W';
+            labyrinth[1][1] = 'W';
+            labyrinth[1][3] = 'W';
+            labyrinth[2][0] = 'P';
+            labyrinth[2][1] = 'W';
+            labyrinth[2][3] = 'W';
+            labyrinth[2][4] = 'W';
+            labyrinth[3][2] = 'W';
+            labyrinth[3][4] = 'E';
+            labyrinth[4][0] = 'W';
+            labyrinth[4][4] = 'W';
+            return labyrinth;
         }
-        labyrinth[0][2] = 'W';
-        labyrinth[0][3] = 'W';
-        labyrinth[1][1] = 'W';
-        labyrinth[1][3] = 'W';
-        labyrinth[2][0] = 'P';
-        labyrinth[2][1] = 'W';
-        labyrinth[2][3] = 'W';
-        labyrinth[2][4] = 'W';
-        labyrinth[3][2] = 'W';
-        labyrinth[3][4] = 'E';
-        labyrinth[4][0] = 'W';
-        labyrinth[4][4] = 'W';
-        return labyrinth;
+        return InizializzazioneMatrice();
     }
 
 
@@ -119,6 +138,46 @@ public class Labirinto {
         indexE[0] = indexI;
         indexE[1] = indexJ;
         return indexE;
+    }
+
+    //crea MappaGioco
+    public static char[][] creaMappaGioco(int dim) {
+        Random rand = new Random();
+        String lettereSostitute = "W----";
+        int indiceRandomicoRigaP = rand.nextInt(dim);
+        int indiceRandomicoRigaE = rand.nextInt(dim);
+        int indiceRandomicoColonnaE = rand.nextInt(dim);
+        int indiceRandomicoColonnaP = rand.nextInt(dim);
+        char[][] vettoreRis = new char[dim][dim];
+
+        if (indiceRandomicoRigaP == indiceRandomicoRigaE) {
+            if (indiceRandomicoColonnaE == indiceRandomicoColonnaP) {
+                return creaMappaGioco(dim);
+            }
+        }
+
+        for (int i = 0; i < vettoreRis.length; i++) {
+            for (int j = 0; j < vettoreRis[0].length; j++) {
+
+                vettoreRis[i][j] = '-';
+            }
+        }
+
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
+                if (i == indiceRandomicoRigaP && j == indiceRandomicoColonnaP) {
+                    vettoreRis[i][j] = 'P';
+                    continue;
+                }
+                if (i == indiceRandomicoRigaE && j == indiceRandomicoColonnaE) {
+                    vettoreRis[i][j] = 'E';
+                    continue;
+                }
+                vettoreRis[i][j] = lettereSostitute.charAt(rand.nextInt(lettereSostitute.length()));
+            }
+        }
+
+        return vettoreRis;
     }
 
     public static int[] PosizioneP(char[][] labyrinth) {
@@ -150,10 +209,7 @@ public class Labirinto {
         if (indexRiga == 0) {
             return false;
         }
-        if (labyrinth[indexRiga - 1][indexColonna] != '-' && labyrinth[indexRiga - 1][indexColonna] != 'E' || labyrinth[indexRiga - 1][indexColonna] == 'W') {
-            return false;
-        }
-        return true;
+        return (labyrinth[indexRiga - 1][indexColonna] == '-' || labyrinth[indexRiga - 1][indexColonna] == 'E') && labyrinth[indexRiga - 1][indexColonna] != 'W';
     }
 
     public static boolean MuoversiGiu(char[][] labyrinth) {
@@ -164,10 +220,7 @@ public class Labirinto {
         if (indexRiga == labyrinth.length - 1) {
             return false;
         }
-        if (labyrinth[indexRiga + 1][indexColonna] != '-' && labyrinth[indexRiga + 1][indexColonna] != 'E' || labyrinth[indexRiga + 1][indexColonna] == 'W') {
-            return false;
-        }
-        return true;
+        return (labyrinth[indexRiga + 1][indexColonna] == '-' || labyrinth[indexRiga + 1][indexColonna] == 'E') && labyrinth[indexRiga + 1][indexColonna] != 'W';
     }
 
     public static boolean MuoversiADestra(char[][] labyrinth) {
@@ -178,10 +231,7 @@ public class Labirinto {
             return false;
         }
         //muoversi a destra
-        if (labyrinth[indexRiga][indexColonna + 1] != '-' && labyrinth[indexRiga][indexColonna + 1] != 'E' || labyrinth[indexRiga][indexColonna + 1] == 'W') {
-            return false;
-        }
-        return true;
+        return (labyrinth[indexRiga][indexColonna + 1] == '-' || labyrinth[indexRiga][indexColonna + 1] == 'E') && labyrinth[indexRiga][indexColonna + 1] != 'W';
     }
 
     public static boolean MuoversiASinistra(char[][] labyrinth) {
@@ -193,11 +243,7 @@ public class Labirinto {
             return false;
         }
 
-        if (labyrinth[indexRiga][indexColonna - 1] != '-' && labyrinth[indexRiga][indexColonna - 1] != 'E' || labyrinth[indexRiga][indexColonna - 1] == 'W') {
-            return false;
-        }
-
-        return true;
+        return (labyrinth[indexRiga][indexColonna - 1] == '-' || labyrinth[indexRiga][indexColonna - 1] == 'E') && labyrinth[indexRiga][indexColonna - 1] != 'W';
     }
 
     public static char MuoviPersonaggioWSDA() {
@@ -211,48 +257,42 @@ public class Labirinto {
         return letteraInserita;
     }
 
-    public static char[][] MuoviPersonaggio(char[][] labyrinth) {
+    public static void MuoviPersonaggio(char[][] labyrinth) {
         int[] indexP = PosizioneP(labyrinth);
         int indexRiga = indexP[0]; //2
         int indexColonna = indexP[1]; //0
         char mossa = MuoviPersonaggioWSDA();
-        char temp = ' ';
-        if (labyrinth[indexRiga][indexColonna + 1] == 'E') {
-            return labyrinth;
-        }
+
         if (mossa == 'A' && MuoversiASinistra(labyrinth)) {
             //se è vero non sono caso limite a sinistra scambio due lettere ai due indici
-            temp = labyrinth[indexRiga][indexColonna];
+            char temp = labyrinth[indexRiga][indexColonna];
             labyrinth[indexRiga][indexColonna] = labyrinth[indexRiga][indexColonna - 1];
             labyrinth[indexRiga][indexColonna - 1] = temp;
 
 
         } else if (mossa == 'S' && MuoversiGiu(labyrinth)) {
             //se è vero non sono caso limite a giu scambio due lettere ai due indici
-            temp = labyrinth[indexRiga][indexColonna];
+            char temp = labyrinth[indexRiga][indexColonna];
             labyrinth[indexRiga][indexColonna] = labyrinth[indexRiga + 1][indexColonna];
             labyrinth[indexRiga + 1][indexColonna] = temp;
 
 
         } else if (mossa == 'D' && MuoversiADestra(labyrinth)) {
             //se è vero non sono caso limite destra scambio due lettere ai due indici
-            temp = labyrinth[indexRiga][indexColonna];
+            char temp = labyrinth[indexRiga][indexColonna];
             labyrinth[indexRiga][indexColonna] = labyrinth[indexRiga][indexColonna + 1];
             labyrinth[indexRiga][indexColonna + 1] = temp;
 
         } else if (mossa == 'W' && MuoversiSu(labyrinth))//non so perchè
         {
             //se è vero non sono caso limite a su scambio due lettere ai due indici
-            temp = labyrinth[indexRiga][indexColonna];
+            char temp = labyrinth[indexRiga][indexColonna];
             labyrinth[indexRiga][indexColonna] = labyrinth[indexRiga - 1][indexColonna];
             labyrinth[indexRiga - 1][indexColonna] = temp;
 
         } else {
             System.out.println("hai sbagliato rinserisci!!");
         }
-
-
-        return labyrinth;
     }
 
 //fine classe labirinto
