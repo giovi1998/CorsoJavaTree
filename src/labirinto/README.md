@@ -5,7 +5,6 @@ Scrivete un programma che permette ad un utente di giocare al vostro labirinto. 
 Implementazione:
 <img src="lab.png"> 
 La e è la nostra uscita o exit, p siamo noi e w sono il wall
-# Index
 
 # Matrice di Default
 <img src="preview.png"> 
