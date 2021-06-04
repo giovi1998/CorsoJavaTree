@@ -18,7 +18,7 @@ public class Labirinto {
         while (!CondizioneVittoria(labyrinth)) {
             labyrinth = MuoviPersonaggio(labyrinth);
             if (CondizioneVittoria(labyrinth)) {
-                System.out.println(CondizioneVittoria(labyrinth));
+                System.out.println("HAI VINTO!!!");
                 break;
             }
             // System.out.println("Condizione di vittoria " + CondizioneVittoria(labyrinth) );
@@ -200,13 +200,13 @@ public class Labirinto {
         return true;
     }
 
-    public static char MuoviPersonaggioWSDA(char[][] labyrinth) {
+    public static char MuoviPersonaggioWSDA() {
         //condizione valida per muoversi
         System.out.println("scegli come spostarti schiacciando W A S D");
 
         Scanner scan = new Scanner(System.in);
         System.out.println("Inserisci Char: ");
-        char letteraInserita = scan.nextLine().charAt(0);
+        char letteraInserita = scan.nextLine().toUpperCase().charAt(0);
         System.out.println("lettera inserita :" + letteraInserita);
         return letteraInserita;
     }
@@ -215,7 +215,7 @@ public class Labirinto {
         int[] indexP = PosizioneP(labyrinth);
         int indexRiga = indexP[0]; //2
         int indexColonna = indexP[1]; //0
-        char mossa = MuoviPersonaggioWSDA(labyrinth);
+        char mossa = MuoviPersonaggioWSDA();
         char temp = ' ';
         if (labyrinth[indexRiga][indexColonna + 1] == 'E') {
             return labyrinth;
