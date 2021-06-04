@@ -8,6 +8,7 @@ La e è la nostra uscita o exit, p siamo noi e w sono il wall
 # Index
 
 # Matrice di Default
+let x = Matrix(rows: 1, columns: 200)
 
          |1colonna |2colonna |3colonna |4colonna |5colonna |                                                              |
 |--------|---------|---------|---------|---------|---------|                                                              |
