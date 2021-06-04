@@ -143,7 +143,16 @@ public class Labirinto {
     //crea MappaGioco
     public static char[][] creaMappaGioco(int dim) {
         Random rand = new Random();
-        String lettereSostitute = "W----";
+        System.out.println("inserisci difficoltà giocatore!! 1 facile 2 medio 3 difficile");
+        Scanner scan = new Scanner(System.in);
+        int numDifficoltà = scan.nextInt();
+
+        if(numDifficoltà>3 ||numDifficoltà<1){
+            System.out.println("Hai sbagliato qualcosa rinserisci difficoltà!!");
+            return creaMappaGioco(dim);
+        }
+
+        String lettereSostitute = settaDifficolta(numDifficoltà);
         int indiceRandomicoRigaP = rand.nextInt(dim);
         int indiceRandomicoRigaE = rand.nextInt(dim);
         int indiceRandomicoColonnaE = rand.nextInt(dim);
@@ -178,6 +187,28 @@ public class Labirinto {
         }
 
         return vettoreRis;
+    }
+
+    public static String settaDifficolta(int num){
+
+
+        if(num==3){
+
+           String difficoltà="W--";
+            return difficoltà;
+        }
+        if(num==2){
+
+          String  difficoltà="W---";
+            return difficoltà;
+        }
+
+        if(num==1){
+
+           String difficoltà="W----";
+            return difficoltà;
+        }
+        return null;
     }
 
     public static int[] PosizioneP(char[][] labyrinth) {
