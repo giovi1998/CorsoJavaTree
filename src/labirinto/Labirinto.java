@@ -6,16 +6,34 @@ public class Labirinto {
 
     public static void main(String[] args) {
         char[][] labyrinth = new char[5][5];
-
         labyrinth = InizializzazioneMatrice(labyrinth);
+
 
         StampaMatrix(labyrinth);
 
-        System.out.println("posizione P" + Arrays.toString(PosizioneP(labyrinth)));
+        //System.out.println("posizione P" + Arrays.toString(PosizioneP(labyrinth)));
 
 
-        //char c=MuoviPersonaggioWSDA(labyrinth);
-        labyrinth=MuoviPersonaggio(labyrinth);
+        //muoversi
+        while (!CondizioneVittoria(labyrinth)) {
+            labyrinth = MuoviPersonaggio(labyrinth);
+            if (CondizioneVittoria(labyrinth)) {
+                System.out.println(CondizioneVittoria(labyrinth));
+                break;
+            }
+            // System.out.println("Condizione di vittoria " + CondizioneVittoria(labyrinth) );
+
+            StampaMatrix(labyrinth);
+
+        }
+        int[] PosizioneP = PosizioneP(labyrinth);
+        int IndexPI = PosizioneP[0];
+        int IndexPJ = PosizioneP[1];
+        int[] PosizioneE = PosizioneE(labyrinth);
+        int IndexEI = PosizioneE[0];
+        int IndexEJ = PosizioneE[1];
+        labyrinth[IndexPI][IndexPJ] = 'E';
+        labyrinth[IndexEI][IndexEJ] = 'P';
         StampaMatrix(labyrinth);
     }
 
@@ -24,6 +42,40 @@ public class Labirinto {
             System.out.println(Arrays.toString(labyrinth[i]));
         }
     }
+
+    public static boolean CondizioneVittoria(char[][] labyrinth) {
+        int[] PosizioneP = PosizioneP(labyrinth);
+        int IndexPI = PosizioneP[0];
+        int IndexPJ = PosizioneP[1];
+        int[] PosizioneE = PosizioneE(labyrinth);
+        int IndexEI = PosizioneE[0];
+        int IndexEJ = PosizioneE[1];
+
+        if (IndexPI == IndexEI) {//condizione per vedere se si trova a destra o a sinistra
+            if (IndexPJ == IndexEJ + 1) {//destra
+                //scambia
+                return true;
+            }
+            if (IndexPJ == IndexEJ - 1) //sinistra
+            {
+                return true;
+            }//&& ((IndexPI==IndexEI+1) || (IndexPI==IndexEI-1)))
+            return false;
+        } else if (IndexPJ == IndexEJ) {
+            if ((IndexPI == IndexEI + 1)) {//giu
+
+                return true;
+            }
+            if (IndexPI == IndexEI - 1) //su
+            {
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+
 
     public static char[][] InizializzazioneMatrice(char[][] labyrinth) {
         for (int i = 0; i < labyrinth.length; i++) {
@@ -90,51 +142,61 @@ public class Labirinto {
         return indexP;
     }
 
-    public static boolean MuoversiSu (char[][] labyrinth)
-    {
+    public static boolean MuoversiSu(char[][] labyrinth) {
         int[] indexP = PosizioneP(labyrinth);
         int indexRiga = indexP[0]; //2
         int indexColonna = indexP[1]; //0
         //muoversi su
-        if (labyrinth[indexRiga +1][indexColonna] != '-' || labyrinth[indexRiga +1][indexColonna] != 'W' || indexRiga == 0) {
+        if (indexRiga == 0) {
+            return false;
+        }
+        if (labyrinth[indexRiga - 1][indexColonna] != '-' && labyrinth[indexRiga - 1][indexColonna] != 'E' || labyrinth[indexRiga - 1][indexColonna] == 'W') {
             return false;
         }
         return true;
     }
 
-    public static boolean MuoversiGiu (char[][] labyrinth)
-    {
+    public static boolean MuoversiGiu(char[][] labyrinth) {
         int[] indexP = PosizioneP(labyrinth);
         int indexRiga = indexP[0]; //2
         int indexColonna = indexP[1]; //0
         //muoversi giu
-        if (labyrinth[indexRiga +1][indexColonna] != '-' || labyrinth[indexRiga +1][indexColonna] == 'W' || indexRiga == labyrinth.length-1) {
+        if (indexRiga == labyrinth.length - 1) {
+            return false;
+        }
+        if (labyrinth[indexRiga + 1][indexColonna] != '-' && labyrinth[indexRiga + 1][indexColonna] != 'E' || labyrinth[indexRiga + 1][indexColonna] == 'W') {
             return false;
         }
         return true;
     }
 
-    public static boolean MuoversiADestra (char[][] labyrinth)
-    {
+    public static boolean MuoversiADestra(char[][] labyrinth) {
         int[] indexP = PosizioneP(labyrinth);
         int indexRiga = indexP[0]; //2
         int indexColonna = indexP[1]; //0
+        if (indexColonna == labyrinth.length - 1) {
+            return false;
+        }
         //muoversi a destra
-        if (labyrinth[indexRiga][indexColonna +1] != '-' || labyrinth[indexRiga][indexColonna + 1] == 'W' || indexColonna == labyrinth.length) {
+        if (labyrinth[indexRiga][indexColonna + 1] != '-' && labyrinth[indexRiga][indexColonna + 1] != 'E' || labyrinth[indexRiga][indexColonna + 1] == 'W') {
             return false;
         }
         return true;
     }
 
-    public static boolean MuoversiASinistra(char[][] labyrinth)
-    {
+    public static boolean MuoversiASinistra(char[][] labyrinth) {
         int[] indexP = PosizioneP(labyrinth);
         int indexRiga = indexP[0]; //2
         int indexColonna = indexP[1]; //0
         //muoversi a sinistra
-        if (labyrinth[indexRiga][indexColonna -1] != '-' || labyrinth[indexRiga][indexColonna -1] == 'W' || indexColonna == 0) {
+        if (indexColonna == 0) {
             return false;
         }
+
+        if (labyrinth[indexRiga][indexColonna - 1] != '-' && labyrinth[indexRiga][indexColonna - 1] != 'E' || labyrinth[indexRiga][indexColonna - 1] == 'W') {
+            return false;
+        }
+
         return true;
     }
 
@@ -145,50 +207,47 @@ public class Labirinto {
         Scanner scan = new Scanner(System.in);
         System.out.println("Inserisci Char: ");
         char letteraInserita = scan.nextLine().charAt(0);
-        scan.close();
-        System.out.println("lettera inserita :"+ letteraInserita );
+        System.out.println("lettera inserita :" + letteraInserita);
         return letteraInserita;
     }
 
-    public static char [][] MuoviPersonaggio(char[][] labyrinth)
-    {
+    public static char[][] MuoviPersonaggio(char[][] labyrinth) {
         int[] indexP = PosizioneP(labyrinth);
-        int indexI = indexP[0]; //2
-        int indexJ = indexP[1]; //0
-        char mossa=MuoviPersonaggioWSDA(labyrinth);
-        char temp='R';
-        if(mossa=='A' && MuoversiASinistra(labyrinth))
-        {
+        int indexRiga = indexP[0]; //2
+        int indexColonna = indexP[1]; //0
+        char mossa = MuoviPersonaggioWSDA(labyrinth);
+        char temp = ' ';
+        if (labyrinth[indexRiga][indexColonna + 1] == 'E') {
+            return labyrinth;
+        }
+        if (mossa == 'A' && MuoversiASinistra(labyrinth)) {
             //se è vero non sono caso limite a sinistra scambio due lettere ai due indici
-            temp=labyrinth[indexI][indexJ];
-            labyrinth[indexI][indexJ]=labyrinth[indexI][indexJ-1];
-            labyrinth[indexI][indexJ-1]=temp;
+            temp = labyrinth[indexRiga][indexColonna];
+            labyrinth[indexRiga][indexColonna] = labyrinth[indexRiga][indexColonna - 1];
+            labyrinth[indexRiga][indexColonna - 1] = temp;
 
-        }else if(mossa=='S' && MuoversiGiu(labyrinth))
-        {
+
+        } else if (mossa == 'S' && MuoversiGiu(labyrinth)) {
             //se è vero non sono caso limite a giu scambio due lettere ai due indici
-            temp=labyrinth[indexI][indexJ];
-            labyrinth[indexI][indexJ]=labyrinth[indexI+1][indexJ];
-            labyrinth[indexI+1][indexJ]=temp;
+            temp = labyrinth[indexRiga][indexColonna];
+            labyrinth[indexRiga][indexColonna] = labyrinth[indexRiga + 1][indexColonna];
+            labyrinth[indexRiga + 1][indexColonna] = temp;
 
 
-
-        }else if(mossa=='D' && MuoversiADestra(labyrinth))
-        {
+        } else if (mossa == 'D' && MuoversiADestra(labyrinth)) {
             //se è vero non sono caso limite destra scambio due lettere ai due indici
-            temp=labyrinth[indexI][indexJ];
-            labyrinth[indexI][indexJ]=labyrinth[indexI][indexJ+1];
-            labyrinth[indexI][indexJ+1]=temp;
+            temp = labyrinth[indexRiga][indexColonna];
+            labyrinth[indexRiga][indexColonna] = labyrinth[indexRiga][indexColonna + 1];
+            labyrinth[indexRiga][indexColonna + 1] = temp;
 
-        }else if(mossa=='W' && !MuoversiSu(labyrinth))//non so perchè
+        } else if (mossa == 'W' && MuoversiSu(labyrinth))//non so perchè
         {
             //se è vero non sono caso limite a su scambio due lettere ai due indici
-            temp=labyrinth[indexI][indexJ];
-            labyrinth[indexI][indexJ]=labyrinth[indexI-1][indexJ];
-            labyrinth[indexI-1][indexJ]=temp;
+            temp = labyrinth[indexRiga][indexColonna];
+            labyrinth[indexRiga][indexColonna] = labyrinth[indexRiga - 1][indexColonna];
+            labyrinth[indexRiga - 1][indexColonna] = temp;
 
-
-        }else {
+        } else {
             System.out.println("hai sbagliato rinserisci!!");
         }
 
