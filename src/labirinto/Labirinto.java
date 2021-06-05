@@ -7,50 +7,61 @@ public class Labirinto {
     public static void main(String[] args) {
 
         char[][] labyrinth = InizializzazioneMatrice();
+        GuardaDoveStannoEedP(labyrinth);
+        int countMosse=1;
+
+
+        //muoversi
+        while (!CondizioneVittoria(labyrinth)) {
+            MuoviPersonaggio(labyrinth);
+            if (CondizioneVittoria(labyrinth)) {
+
+                break;
+            }
+            countMosse=(ContaMosse(countMosse));
+            StampaMatrix(labyrinth);
+        }
+        /*scambia i due indici per dare l'idea di aver passato E
         int[] PosizioneP = PosizioneP(labyrinth);
         int IndexPI = PosizioneP[0];
         int IndexPJ = PosizioneP[1];
         int[] PosizioneE = PosizioneE(labyrinth);
         int IndexEI = PosizioneE[0];
         int IndexEJ = PosizioneE[1];
-        System.out.println("Posizione P " +IndexPI + "," +IndexPJ );
-        System.out.println("Posizione E " +IndexEI + "," +IndexEJ );
-
-        StampaMatrix(labyrinth);
-
-        //muoversi
-        while (!CondizioneVittoria(labyrinth)) {
-            MuoviPersonaggio(labyrinth);
-            if (CondizioneVittoria(labyrinth)) {
-                System.out.println("HAI VINTO!!!");
-                break;
-            }
-            PosizioneP = PosizioneP(labyrinth);
-            IndexPI = PosizioneP[0];
-            IndexPJ = PosizioneP[1];
-            PosizioneE = PosizioneE(labyrinth);
-            IndexEI = PosizioneE[0];
-            IndexEJ = PosizioneE[1];
-            System.out.println("Posizione P " +IndexPI+ "," +IndexPJ );
-            System.out.println("Posizione E " +IndexEI+ "," +IndexEJ );
-            StampaMatrix(labyrinth);
-
-        }
-        PosizioneP = PosizioneP(labyrinth);
-        IndexPI = PosizioneP[0];
-        IndexPJ = PosizioneP[1];
-        PosizioneE = PosizioneE(labyrinth);
-        IndexEI = PosizioneE[0];
-        IndexEJ = PosizioneE[1];
         labyrinth[IndexPI][IndexPJ] = 'E';
-        labyrinth[IndexEI][IndexEJ] = 'P';
+        labyrinth[IndexEI][IndexEJ] = 'P';*/
+
+        System.out.println("HAI VINTO!!! Hai vinto in "+(ContaMosse(countMosse)-1) +" mossa");
+
         StampaMatrix(labyrinth);
+
+
+
+    }
+
+    public static int ContaMosse(int mosse)
+    {
+        return mosse + 1;
     }
 
     public static void StampaMatrix(char[][] labyrinth) {
         for (char[] chars : labyrinth) {
             System.out.println(Arrays.toString(chars));
         }
+    }
+
+    public static void GuardaDoveStannoEedP(char[][] labyrinth)
+    {
+        int[] PosizioneP = PosizioneP(labyrinth);
+        int IndexPI = PosizioneP[0];
+        int IndexPJ = PosizioneP[1];
+        int[] PosizioneE = PosizioneE(labyrinth);
+        int IndexEI = PosizioneE[0];
+        int IndexEJ = PosizioneE[1];
+        System.out.println("Posizione P " +IndexPI+ "," +IndexPJ );
+        System.out.println("Posizione E " +IndexEI+ "," +IndexEJ );
+        StampaMatrix(labyrinth);
+
     }
 
     public static boolean CondizioneVittoria(char[][] labyrinth) {
@@ -87,12 +98,16 @@ public class Labirinto {
 
 
         Scanner scan = new Scanner(System.in);
-        System.out.println("Salve Giocatore scegli!! Prova ad uscire dal mio labirinto");
+        System.out.println("Salve Giocatore scegli!! Prova ad uscire dal mio labirinto ");
+        System.out.println("L'obbiettivo è uscire dal uscita (exit->E) tu sei Persona (P) non puoi andare addosso ai muri (W)!!");
         System.out.println("Giocatore scegli quale mappa giocare: 1(predefinita) 2(generata casualmente) ");
         int scelta = scan.nextInt();
         if (scelta == 2) {
-            System.out.println("Inserisci dimensione mappa che vuoi giocare ");
+            System.out.println("Inserisci dimensione mappa che vuoi giocare per rendere le cose più interessante inserisci dim 3");
             int dim = scan.nextInt();
+            if(dim<=3){
+                InizializzazioneMatrice();
+            }
             return creaMappaGioco(dim);
         } else if (scelta == 1) {
             char[][] labyrinth = new char[5][5];
@@ -176,16 +191,15 @@ public class Labirinto {
                 }
 
 
-                assert lettereSostitute != null;
                 vettoreRis[i][j] = lettereSostitute.charAt(rand.nextInt(lettereSostitute.length()));
             }
         }
-        //dopo creazione se il pc non riesce a risolverla rifalla
-        if (!spostaAutomatico(vettoreRis, PosizioneP(vettoreRis))) {
-            System.out.println("calcolando...");
-            return creaMappaGioco(dim);
+        //dopo creazione se il pc non riesce a risolverla rifalla anche se E è vicino a P
+        if (spostaAutomatico(vettoreRis, PosizioneP(vettoreRis)) && !CondizioneVittoria(vettoreRis)) {
+            return vettoreRis;
         }
-        return vettoreRis;
+        System.out.println("calcolando..."+ "\n" +"non sono riuscito... ");
+        return creaMappaGioco(dim);
     }
     /**
      * metodo ricorsivo che permette la risoluzione automatica
@@ -232,8 +246,6 @@ public class Labirinto {
         System.out.println("inserisci difficoltà giocatore!! 1 facile 2 medio 3 difficile");
         Scanner scan = new Scanner(System.in);
         int num = scan.nextInt();
-
-
         if(num==3){
 
             return "WWW--";
@@ -331,13 +343,12 @@ public class Labirinto {
         int indexRiga = indexP[0]; //2
         int indexColonna = indexP[1]; //0
         char mossa = MuoviPersonaggioWSDA();
-
+        int countMossa=1;
         if (mossa == 'A' && MuoversiASinistra(labyrinth)) {
             //se è vero non sono caso limite a sinistra scambio due lettere ai due indici
             char temp = labyrinth[indexRiga][indexColonna];
             labyrinth[indexRiga][indexColonna] = labyrinth[indexRiga][indexColonna - 1];
             labyrinth[indexRiga][indexColonna - 1] = temp;
-
 
         } else if (mossa == 'S' && MuoversiGiu(labyrinth)) {
             //se è vero non sono caso limite a giu scambio due lettere ai due indici
@@ -360,6 +371,7 @@ public class Labirinto {
             labyrinth[indexRiga - 1][indexColonna] = temp;
 
         } else {
+            countMossa=ContaMosse(countMossa);
             System.out.println("hai sbagliato rinserisci!!");
         }
     }
