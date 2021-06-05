@@ -236,13 +236,13 @@ public class Labirinto {
 
         if(num==3){
 
-            return "W-";
+            return "WWW--";
         }else if(num==2){
 
-            return "W--";
+            return "WW---";
         }else if(num==1){
 
-           return "W---";
+           return "W-";
         }else{
             return settaDifficolta();
         }
