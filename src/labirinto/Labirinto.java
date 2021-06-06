@@ -8,7 +8,7 @@ public class Labirinto {
 
         char[][] labyrinth = InizializzazioneMatrice();
         GuardaDoveStannoEedP(labyrinth);
-        int countMosse=1;
+        int countMosse = 1;
 
 
         //muoversi
@@ -18,7 +18,7 @@ public class Labirinto {
 
                 break;
             }
-            countMosse=(ContaMosse(countMosse));
+            countMosse = (ContaMosse(countMosse));
             StampaMatrix(labyrinth);
         }
         /*scambia i due indici per dare l'idea di aver passato E
@@ -31,16 +31,14 @@ public class Labirinto {
         labyrinth[IndexPI][IndexPJ] = 'E';
         labyrinth[IndexEI][IndexEJ] = 'P';*/
 
-        System.out.println("HAI VINTO!!! Hai vinto in "+(ContaMosse(countMosse)-1) +" mossa");
+        System.out.println("HAI VINTO!!! Hai vinto in " + (ContaMosse(countMosse) - 1) + " mossa");
 
         StampaMatrix(labyrinth);
 
 
-
     }
 
-    public static int ContaMosse(int mosse)
-    {
+    public static int ContaMosse(int mosse) {
         return mosse + 1;
     }
 
@@ -50,16 +48,15 @@ public class Labirinto {
         }
     }
 
-    public static void GuardaDoveStannoEedP(char[][] labyrinth)
-    {
+    public static void GuardaDoveStannoEedP(char[][] labyrinth) {
         int[] PosizioneP = PosizioneP(labyrinth);
         int IndexPI = PosizioneP[0];
         int IndexPJ = PosizioneP[1];
         int[] PosizioneE = PosizioneE(labyrinth);
         int IndexEI = PosizioneE[0];
         int IndexEJ = PosizioneE[1];
-        System.out.println("Posizione P " +IndexPI+ "," +IndexPJ );
-        System.out.println("Posizione E " +IndexEI+ "," +IndexEJ );
+        System.out.println("Posizione P " + IndexPI + "," + IndexPJ);
+        System.out.println("Posizione E " + IndexEI + "," + IndexEJ);
         StampaMatrix(labyrinth);
 
     }
@@ -105,7 +102,7 @@ public class Labirinto {
         if (scelta == 2) {
             System.out.println("Inserisci dimensione mappa che vuoi giocare per rendere le cose più interessante inserisci dim 3");
             int dim = scan.nextInt();
-            if(dim<=3){
+            if (dim <= 3) {
                 InizializzazioneMatrice();
             }
             return creaMappaGioco(dim);
@@ -160,17 +157,29 @@ public class Labirinto {
     public static char[][] creaMappaGioco(int dim) {
         Random rand = new Random();
         String lettereSostitute = settaDifficolta();
-        int indiceRandomicoRigaP = rand.nextInt(dim);
-        int indiceRandomicoRigaE = rand.nextInt(dim);
-        int indiceRandomicoColonnaE = rand.nextInt(dim);
-        int indiceRandomicoColonnaP = rand.nextInt(dim);
+        //in questo modo la P è rinchiusa nelle prime tre colonne e righe
+        //mentre la E nelle ultime 3
+        int indiceRandomicoRigaP = rand.nextInt(3);
+        int indiceRandomicoRigaE = dim - 1 - rand.nextInt(3);
+        int indiceRandomicoColonnaE = dim - 1 - rand.nextInt(3);
+        int indiceRandomicoColonnaP = rand.nextInt(3);
         char[][] vettoreRis = new char[dim][dim];
 
+        //per non essere uguali
         if (indiceRandomicoRigaP == indiceRandomicoRigaE) {
             if (indiceRandomicoColonnaE == indiceRandomicoColonnaP) {
                 return creaMappaGioco(dim);
             }
         }
+        //inizializzazione randomica
+        vettoreRis = InizializzazioneMatriceRandomica(dim, lettereSostitute, indiceRandomicoRigaP, indiceRandomicoRigaE, indiceRandomicoColonnaE, indiceRandomicoColonnaP);
+        return vettoreRis;
+    }
+
+    public static char[][] InizializzazioneMatriceRandomica(int dim, String lettereSostitute, int indiceRandomicoRigaP, int indiceRandomicoRigaE, int indiceRandomicoColonnaE, int indiceRandomicoColonnaP) {
+        Random rand = new Random();
+
+        char[][] vettoreRis = new char[dim][dim];
 
         for (int i = 0; i < vettoreRis.length; i++) {
             for (int j = 0; j < vettoreRis[0].length; j++) {
@@ -193,25 +202,29 @@ public class Labirinto {
 
                 vettoreRis[i][j] = lettereSostitute.charAt(rand.nextInt(lettereSostitute.length()));
             }
+
         }
-        //dopo creazione se il pc non riesce a risolverla rifalla anche se E è vicino a P
         if (spostaAutomatico(vettoreRis, PosizioneP(vettoreRis)) && !CondizioneVittoria(vettoreRis)) {
             return vettoreRis;
         }
-        System.out.println("calcolando..."+ "\n" +"non sono riuscito... ");
-        return creaMappaGioco(dim);
+
+        return InizializzazioneMatriceRandomica(dim, lettereSostitute, indiceRandomicoRigaP, indiceRandomicoRigaE, indiceRandomicoColonnaE, indiceRandomicoColonnaP);
+
+
+
     }
+
     /**
      * metodo ricorsivo che permette la risoluzione automatica
      *
      * @param originalMatrice .
-     * @param nuovaPosizione .
+     * @param nuovaPosizione  .
      * @return vero se ha trovato la 'E'
      * svolta Da daniele modificata
      */
     public static boolean spostaAutomatico(char[][] originalMatrice, int[] nuovaPosizione) {
 
-        char [][] copiaMatrice=copiaMatrice(originalMatrice);
+        char[][] copiaMatrice = copiaMatrice(originalMatrice);
         if (nuovaPosizione[0] < copiaMatrice.length && nuovaPosizione[1] < copiaMatrice[0].length && nuovaPosizione[0] >= 0 && nuovaPosizione[1] >= 0) {
             if (copiaMatrice[nuovaPosizione[0]][nuovaPosizione[1]] == 'W')
                 return false;
@@ -235,27 +248,27 @@ public class Labirinto {
 
 
     //in Java se non usi questo vai a sovrascrivere ma tu non vuoi !! in questo modo vai a copiare e restituire la matrice
-    public static char [][] copiaMatrice(char[][] originalMatrice)
-    {
+    public static char[][] copiaMatrice(char[][] originalMatrice) {
         char[][] res = new char[originalMatrice.length][];
         for (int i = 0; i < originalMatrice.length; i++)
             res[i] = originalMatrice[i].clone();
         return res;
     }
-    public static String settaDifficolta(){
+
+    public static String settaDifficolta() {
         System.out.println("inserisci difficoltà giocatore!! 1 facile 2 medio 3 difficile");
         Scanner scan = new Scanner(System.in);
         int num = scan.nextInt();
-        if(num==3){
+        if (num == 3) {
 
-            return "WWW--";
-        }else if(num==2){
+            return "W-";
+        } else if (num == 2) {
 
             return "WW---";
-        }else if(num==1){
+        } else if (num == 1) {
 
-           return "W-";
-        }else{
+            return "W---";
+        } else {
             return settaDifficolta();
         }
 
@@ -343,7 +356,7 @@ public class Labirinto {
         int indexRiga = indexP[0]; //2
         int indexColonna = indexP[1]; //0
         char mossa = MuoviPersonaggioWSDA();
-        int countMossa=1;
+        int countMossa = 1;
         if (mossa == 'A' && MuoversiASinistra(labyrinth)) {
             //se è vero non sono caso limite a sinistra scambio due lettere ai due indici
             char temp = labyrinth[indexRiga][indexColonna];
@@ -371,7 +384,7 @@ public class Labirinto {
             labyrinth[indexRiga - 1][indexColonna] = temp;
 
         } else {
-            countMossa=ContaMosse(countMossa);
+            countMossa = ContaMosse(countMossa);
             System.out.println("hai sbagliato rinserisci!!");
         }
     }
