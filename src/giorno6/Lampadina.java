@@ -1,73 +1,68 @@
 package giorno6;
 
-public class Lampadina
-{
-
-    public statoLampadina stato;
+public class Lampadina {
+    private statoLampadina stato;
     private int contatore;
+    static boolean corrente;
 
-    public int getContatore()
-    {
+
+    //costruttore
+    public Lampadina() {
+        setStato(statoLampadina.spento);
+        setCorrente(false);
+    }
+
+    public  boolean isCorrente() {
+        return corrente;
+    }
+
+    public void setCorrente(boolean corrente) {
+        Lampadina.corrente = corrente;
+    }
+
+    public int getContatore() {
         return contatore;
     }
 
-    public void setContatore(int contatore)
-    {
+    public void setContatore(int contatore) {
         this.contatore = contatore;
     }
 
-    //costruttore
-    public Lampadina()
-    {
-        setStato(statoLampadina.spento);
-    }
-
-    public Lampadina(statoLampadina acceso)
-    {
-        setStato(statoLampadina.spento);
-    }
-
-
     // get stato della lampadina
-    public statoLampadina getStato()
-    {
+    public statoLampadina getStato() {
         return stato;
     }
 
     // set stato della lampadina
-    public void setStato(statoLampadina stato)
-    {
+    public void setStato(statoLampadina stato) {
         this.stato = stato;
     }
 
     //metodi
-    public void click()
-    {
-        if (getStato().equals(statoLampadina.spento))
-        {
+    public void click(){
+        if(getStato().equals(statoLampadina.spento) && corrente){
             System.out.println("Hai acceso la lampadina");
             setStato(statoLampadina.acceso);
-            setContatore(contatore = contatore + 1);
-        } else if (getStato().equals(statoLampadina.acceso))
-        {
+            setContatore(contatore = contatore+1);
+        }
+        else if(getStato().equals(statoLampadina.acceso)) {
             System.out.println("Hai spento la lampadina");
             setStato(statoLampadina.spento);
-            setContatore(contatore = contatore + 1);
+            setContatore(contatore = contatore+1);
         }
-        if (contatore >= 11)
-        {
+        if(contatore >= 5){
             System.out.println("Hai rotto la lampadina");
             setStato(statoLampadina.rotto);
         }
     }
 
-    public void checkStatus()
-    {
-        System.out.println(getStato());
+    public boolean checkStatusRotto(){
+        if(stato.equals(statoLampadina.rotto)){
+            return true;
+        }else return false;
     }
-
 }
- enum statoLampadina
-{
+
+enum statoLampadina {
     acceso, spento, rotto
 }
