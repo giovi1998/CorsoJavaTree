@@ -2,6 +2,7 @@ package giorno6;
 
 public class Lampadina
 {
+
     public statoLampadina stato;
     private int contatore;
 
@@ -20,6 +21,12 @@ public class Lampadina
     {
         setStato(statoLampadina.spento);
     }
+
+    public Lampadina(statoLampadina acceso)
+    {
+        setStato(statoLampadina.spento);
+    }
+
 
     // get stato della lampadina
     public statoLampadina getStato()
@@ -60,8 +67,7 @@ public class Lampadina
     }
 
 }
-
-enum statoLampadina
+ enum statoLampadina
 {
     acceso, spento, rotto
 }
