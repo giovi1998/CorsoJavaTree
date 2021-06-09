@@ -1,4 +1,4 @@
-package giorno6;
+package lampadina;
 
 import java.util.Scanner;
 

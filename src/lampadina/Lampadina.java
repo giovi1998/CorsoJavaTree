@@ -1,4 +1,4 @@
-package giorno6;
+package lampadina;
 
 public class Lampadina {
     private statoLampadina stato;
