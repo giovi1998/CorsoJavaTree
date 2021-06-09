@@ -11,7 +11,7 @@ public class NumPariDispari {
 
         boolean pariodispari=(x%2)==0;
 
-        if (pariodispari==true) {
+        if (pariodispari) {
             System.out.println("Il numero è pari.");
         } else {
             System.out.println("Il numero è dispari.");
