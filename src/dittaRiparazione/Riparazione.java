@@ -1,19 +1,23 @@
 package dittaRiparazione;
 
 public class Riparazione {
-    public String indirizzo;
-    public int priorità;
-    public StatoRiparazione stato;
-    public int idTecnico;
+    private String indirizzo;
+    private int prioritaIntervento;
+    private StatoRiparazione stato;
 
-    public Riparazione(String riparazioneIndirizzo,int priorità) {
-        this.priorità=priorità;
-        this.stato =StatoRiparazione.inAttesa;
-        this.indirizzo = riparazioneIndirizzo;
-        this.idTecnico=0;
+    /**
+     * Costruttore classe riparazione
+     *
+     * @param indirizzo          .
+     * @param prioritaIntervento .
+     * @param stato              .
+     */
+    public Riparazione(String indirizzo, int prioritaIntervento, StatoRiparazione stato) {
+        this.indirizzo = indirizzo;
+        this.prioritaIntervento = prioritaIntervento;
+        this.stato = stato;
     }
 
-    //getter e setter
     public String getIndirizzo() {
         return indirizzo;
     }
@@ -22,13 +26,12 @@ public class Riparazione {
         this.indirizzo = indirizzo;
     }
 
-
-    public int getPriorità() {
-        return priorità;
+    public int getPrioritaIntervento() {
+        return prioritaIntervento;
     }
 
-    public void setPriorità(int priorità) {
-        this.priorità = priorità;
+    public void setPrioritaIntervento(int prioritaIntervento) {
+        this.prioritaIntervento = prioritaIntervento;
     }
 
     public StatoRiparazione getStato() {

@@ -1,37 +1,41 @@
 package dittaRiparazione;
 
+
 public class Tecnico {
-    final String nomeTecnico;//non cambia mai!
-    public boolean occupato;
-    public int idTecnico;
+    private String nome;
+    private StatoTecnico stato;
 
-
-    public Tecnico(String nomeTecnico,int idTecnico)
-    {
-        this.nomeTecnico = nomeTecnico;
-        this.occupato = false;
-        this.idTecnico = idTecnico;
+    /**
+     * Costruttore che prende il nome del tecnico
+     * @param nome
+     */
+    public Tecnico(String nome, StatoTecnico stato) {
+        this.nome = nome;
+        this.stato = stato;
     }
 
-    //è solo uno il nome non posso segnarlo
-    public String getNomeTecnico() {
-        return nomeTecnico;
+    public StatoTecnico getStato() {
+        return stato;
     }
 
-    //settare e prendere se è occupato o no
-    public boolean isOccupato() {
-        return occupato;
+    public void setStato(StatoTecnico stato) {
+        this.stato = stato;
     }
 
-    public void setOccupato(boolean occupato) {
-        this.occupato = occupato;
+    /**
+     * metodo per ottenere Il nome
+     * @return nome.
+     */
+    public String getNome() {
+        return nome;
     }
 
-    public int getIdTecnico() {
-        return idTecnico;
-    }
+    /**
+     * metodo per mettere il nome
+     * @param nome
+     */
 
-    public void setIdTecnico(int idTecnico) {
-        this.idTecnico = idTecnico;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }

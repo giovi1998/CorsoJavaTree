@@ -1,17 +1,29 @@
 package dittaRiparazione;
 
 import java.util.Arrays;
-
+import java.util.Comparator;
+import java.util.Scanner;
+/**
+ * Class
+ */
 public class DittaRiparazioni {
-    private Tecnico[] tecnici;
-    private Riparazione[] riparazioni;
+    Tecnico[] tecnici;
+    Riparazione[] riparazioni;
 
-
-    public DittaRiparazioni(Tecnico[] tecnici, Riparazione[] riparazioneDafare) {
+    /**
+     * Costruttore
+     * @param tecnici
+     * @param riparazioni
+     */
+    public DittaRiparazioni(Tecnico[] tecnici, Riparazione[] riparazioni) {
         this.tecnici = tecnici;
-        this.riparazioni = riparazioneDafare;
+        this.riparazioni = riparazioni;
     }
 
+    /**
+     * aggiunge il tecnico
+     * @param tecnico
+     */
     public void aggiungiTecnico(Tecnico tecnico) {
 
         if (tecnici == null) {
@@ -29,15 +41,24 @@ public class DittaRiparazioni {
 
     }
 
+    /**
+     *Guarda il nome del tecnico
+     * @param tecnico
+     * @return true or false
+     */
     public boolean checkNomeTecnico(Tecnico tecnico) {
         for (Tecnico value : tecnici) {
-            if (value.getNomeTecnico().equalsIgnoreCase(tecnico.nomeTecnico)) {
+            if (value.getNome().equalsIgnoreCase(tecnico.getNome())) {
                 return false;
             }
         }
         return true;
     }
 
+    /**
+     * aggiunge una riparazione da fare
+     * @param riparazione
+     */
     public void aggiungiRiparazione(Riparazione riparazione) {
         if (riparazioni == null) {
 
@@ -53,83 +74,87 @@ public class DittaRiparazioni {
 
     public void stampaRiparazioniAttesa() {
         for (int i = 0; i < riparazioni.length; i++) {
-            if (riparazioni[i].stato.equals(StatoRiparazione.inAttesa)) {
-                System.out.println("La riparazione n° " + i + " in via: " + riparazioni[i].indirizzo
-                        + " di priorità: " + riparazioni[i].priorità + " nello stato: " +
-                        riparazioni[i].stato);
+            if (riparazioni[i].getStato().equals(StatoRiparazione.inAttesa)) {
+                System.out.println("La riparazione in via: " + riparazioni[i].getIndirizzo()
+                        + " , di priorità: " + riparazioni[i].getPrioritaIntervento() + " nello stato: " +
+                        riparazioni[i].getStato());
             }
         }
     }
 
     public void stampaRiparazioni() {
         for (int i = 0; i < riparazioni.length; i++) {
-            System.out.println("La riparazione n° " + i + " in via: " + riparazioni[i].indirizzo
-                    + " di priorità: " + riparazioni[i].priorità + " nello stato: " +
-                    riparazioni[i].stato + " è stata presa dal tecnico con l'id " + riparazioni[i].idTecnico);
+            System.out.println("La riparazione in via: " + riparazioni[i].getIndirizzo()
+                    + " , di priorità: " + riparazioni[i].getPrioritaIntervento() + " nello stato: " +
+                    riparazioni[i].getStato());
         }
     }
 
     public void stampaListaTecnici() {
         System.out.println("Lista Tecnici: ");
         for (int i = 0; i < tecnici.length; i++) {
-            System.out.println(i + ")" + tecnici[i].getNomeTecnico() + " stato: " + tecnici[i].occupato + " con l'id " + tecnici[i].idTecnico);
+            System.out.println(i + ")" + tecnici[i].getNome() + " stato: " + tecnici[i].getStato());
         }
     }
 
 
-    public void assegnaRiparazione() {
-        //scorre riparazioni
+    public void assegnaRiparazioni() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("scegli il numero dell'operatore da assegnare tra i seguenti ");
+        stampaListaTecnici();
+        int sceltaOperatore = scan.nextInt();
+        System.out.println("scegli il numero che corrisponde alla riparazione tra quelle in attesa");
+        stampaRiparazioniAttesa();
+        int sceltaRiparazione = scan.nextInt();
+        Arrays.sort(riparazioni, Comparator.comparing(Riparazione::getIndirizzo));
+        for (int i = 0; i < tecnici.length; i++) {
+            for (int j = 0; j < riparazioni.length; j++) {
+                if (sceltaOperatore == i && sceltaRiparazione == j) {
+                    if (tecnici[i].getStato().equals(StatoTecnico.libero)) {
+                        riparazioni[i].setStato(StatoRiparazione.inEsecuzione);
+                        tecnici[i].setStato(StatoTecnico.occupato);
+                    }else System.out.println("Operatore già occupato o in ferie ");
+                }
+            }
+        }
+        stampaRiparazioniAttesa();
+        stampaListaTecnici();
 
-        for (int i = 0; i < riparazioni.length; i++) {
-            if (riparazioni[i].stato == StatoRiparazione.inAttesa) {
-                if (!tecnici[i].occupato) {
-                    riparazioni[i].idTecnico = tecnici[i].idTecnico;
-                    riparazioni[i].stato = StatoRiparazione.occupata;
-                    tecnici[i].occupato = true;
+    }
+    public void stampaRiparazioneMaggiorePriorita(){
+        int max =0;
+        for (Riparazione riparazione : riparazioni) {
+            if (riparazione.getPrioritaIntervento() > max && riparazione.getStato().equals(StatoRiparazione.inAttesa)) {
+                max = riparazione.getPrioritaIntervento();
+            }
+        }
+        System.out.println(max);
+        for (Riparazione riparazione : riparazioni) {
+            if (riparazione.getPrioritaIntervento() == max && riparazione.getStato().equals(StatoRiparazione.inAttesa)) {
+                System.out.println("La riparazione in via: " + riparazione.getIndirizzo() +
+                        " è quella con maggiore priorità ");
+            }
+        }
+    }
+
+
+    public void concludiRiparazioni(Riparazione riparazione) {
+        for (Riparazione value : riparazioni) {
+            if (value.getIndirizzo().equalsIgnoreCase(riparazione.getIndirizzo())) {
+                value.setStato(StatoRiparazione.completata);
+            }
+        }
+    }
+
+    public void mandaInFerieTecnici(Tecnico[] tecnico) {
+        for (Tecnico value : tecnici) {
+            for (Tecnico item : tecnico) {
+                if (value.getNome().equalsIgnoreCase(item.getNome())) {
+                    item.setStato(StatoTecnico.inFerie);
                 }
             }
         }
     }
 
-    public void ordinaRipazioneInBaseAPriorita() {
-
-        assegnaRiparazioneUnaPriorita();
-
-    }
-
-    public void assegnaRiparazioneUnaPriorita() {
-        int max = 0;
-        int i ;
-        //ricerca maggiore
-        for (i = 0; i < riparazioni.length; i++) {
-            if (riparazioni[i].stato == StatoRiparazione.inAttesa && max < riparazioni[i].priorità) {
-
-                max = riparazioni[i].priorità;
-            }
-        }
-
-        for (i = 0; i < riparazioni.length; i++) {
-            if (max == riparazioni[i].priorità) {
-                for (int j = 0; j < tecnici.length; j++) {
-                    if (!tecnici[j].isOccupato()) {
-                        riparazioni[i].idTecnico = tecnici[j].idTecnico;
-                        riparazioni[i].stato = StatoRiparazione.occupata;
-                        tecnici[j].occupato = true;
-
-                    }
-
-            }
-        }
-        }
-
-    }
-
-    public void concludiRiparazione() {
-
-    }
-
-    public void mandainFerie() {
-
-    }
-
 }
+
