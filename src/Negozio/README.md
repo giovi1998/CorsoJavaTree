@@ -1,4 +1,4 @@
-#Negozio
+# Negozio
 
 Creare un sistema in grado di gestire i prodotti venduti in un negozio. Si tratta di un negozio in
 pieno centro storico, quindi potrà gestire al massimo 100 tipi diversi di prodotto. In particolare, il
