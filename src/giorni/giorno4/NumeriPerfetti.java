@@ -6,7 +6,7 @@ import java.util.*;
 public class NumeriPerfetti {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        System.out.println("Inserisci numero: ");
+        System.out.println("Inserisci costo: ");
         int numero = scan.nextInt();
         scan.close();
         stampaPerfetti(numero);

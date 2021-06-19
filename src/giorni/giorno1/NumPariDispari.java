@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class NumPariDispari {
     public static void main(String[] args) {
-        System.out.println("Inserisci numero: ");
+        System.out.println("Inserisci costo: ");
         //inserimento dato da tastiera
         Scanner input=new Scanner(System.in);
         int x=input.nextInt();
@@ -12,9 +12,9 @@ public class NumPariDispari {
         boolean pariodispari=(x%2)==0;
 
         if (pariodispari) {
-            System.out.println("Il numero è pari.");
+            System.out.println("Il costo è pari.");
         } else {
-            System.out.println("Il numero è dispari.");
+            System.out.println("Il costo è dispari.");
         }
     }
 }

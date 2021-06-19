@@ -5,10 +5,10 @@ Progettare una classe Lampadina, che modella una lampadina classica
 La lampadina può essere accesa, spenta o rotta
 La classe epone due metodi
 * ottenere lo stato corrente della lampadina
-* azionare la lampadina, quindi un metodo che cambia lo stato della lampadina da accesa a spenta o da spenta ad accesa, oppure che imposta lo stato a "rotta" se si è raggiunto il limite massimo di azionamenti per quella lampadina (il numero massimo di azionamenti viene definito in fase di costruzione dell'istanza)
+* azionare la lampadina, quindi un metodo che cambia lo stato della lampadina da accesa a spenta o da spenta ad accesa, oppure che imposta lo stato a "rotta" se si è raggiunto il limite massimo di azionamenti per quella lampadina (il costo massimo di azionamenti viene definito in fase di costruzione dell'istanza)
 
 La classe deve contenere
-* i campi necessari a descriverne lo stato e il numero di azionamenti
+* i campi necessari a descriverne lo stato e il costo di azionamenti
 * un costruttore
 * i metodi indicati sopra
 

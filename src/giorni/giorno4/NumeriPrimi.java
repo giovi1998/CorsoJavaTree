@@ -5,7 +5,7 @@ public class NumeriPrimi {
     public static void main(String[] args){
         Scanner scan = new Scanner(System.in);
 
-        System.out.println("Inserisci il primo numero che vuoi sapere ");
+        System.out.println("Inserisci il primo costo che vuoi sapere ");
         int numero = scan.nextInt();
         scan.close();
 

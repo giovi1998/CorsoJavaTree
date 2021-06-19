@@ -7,12 +7,12 @@ public class SumSotMolDiv {
         double a;
         double b; */
         //input da tastiera
-        System.out.println("Inserisci primo numero: ");
+        System.out.println("Inserisci primo costo: ");
         Scanner input=new Scanner(System.in);
         Double c=input.nextDouble();
         //input.close();
 
-        System.out.println("Inserisci secondo numero: ");
+        System.out.println("Inserisci secondo costo: ");
         Scanner input1=new Scanner(System.in);
         Double d=input1.nextDouble();
         input1.close();

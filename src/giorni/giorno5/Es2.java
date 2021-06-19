@@ -15,6 +15,6 @@ public class Es2 {
             }
         }
         System.out.println(Arrays.toString(array));
-        System.out.println("numero " +num);
+        System.out.println("costo " +num);
     }
 }

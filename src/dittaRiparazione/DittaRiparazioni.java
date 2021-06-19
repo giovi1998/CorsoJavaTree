@@ -100,10 +100,10 @@ public class DittaRiparazioni {
 
     public void assegnaRiparazioni() {
         Scanner scan = new Scanner(System.in);
-        System.out.println("scegli il numero dell'operatore da assegnare tra i seguenti ");
+        System.out.println("scegli il costo dell'operatore da assegnare tra i seguenti ");
         stampaListaTecnici();
         int sceltaOperatore = scan.nextInt();
-        System.out.println("scegli il numero che corrisponde alla riparazione tra quelle in attesa");
+        System.out.println("scegli il costo che corrisponde alla riparazione tra quelle in attesa");
         stampaRiparazioniAttesa();
         int sceltaRiparazione = scan.nextInt();
         Arrays.sort(riparazioni, Comparator.comparing(Riparazione::getIndirizzo));

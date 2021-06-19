@@ -14,7 +14,7 @@ public class Es3 {
         }
         for (int i = 0; i < arr.length + 1; i++) {
             if (frequenza[i] == i) {
-                System.out.println(i + " numero fortunato!");
+                System.out.println(i + " costo fortunato!");
                 if (i > max) {
                     max = i;
                 }

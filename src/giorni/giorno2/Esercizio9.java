@@ -16,11 +16,11 @@ public class Esercizio9 {
 
         if(prime)
         {
-            System.out.print("numero primo");
+            System.out.print("costo primo");
 
         }else
         {
-            System.out.print("numero non primo");
+            System.out.print("costo non primo");
         }
 
     }

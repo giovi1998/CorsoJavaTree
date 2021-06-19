@@ -1,6 +1,6 @@
 package immagini.Timelapse_Webcam;
-
-import com.github.sarxos.webcam.Webcam;
+/*
+import com.sar
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -13,3 +13,4 @@ public class Hello {
         webcam.close();
     }
 }
+*/

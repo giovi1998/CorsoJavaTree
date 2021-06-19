@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Tombola {
     public static void main(String[] args) {
         int[][] cartella = new int[3][5];
-        int[] rowCounter = new int[3]; // Array per tenere traccia del numero di match per ogni riga
+        int[] rowCounter = new int[3]; // Array per tenere traccia del costo di match per ogni riga
         int indiceNumeroEstratto = 0;
         boolean tombola = false;
 
@@ -16,14 +16,14 @@ public class Tombola {
         for (int[] x : cartella)
             System.out.println(Arrays.toString(x));
 
-        // Controlla che il numero di estrazioni inserito sia compreso tra 20 e 90
+        // Controlla che il costo di estrazioni inserito sia compreso tra 20 e 90
         int numeroEstrazioni;
-        System.out.print("\nInserire il numero di estrazioni: ");
+        System.out.print("\nInserire il costo di estrazioni: ");
         do {
             Scanner sc = new Scanner(System.in);
             numeroEstrazioni = sc.nextInt();
             if (numeroEstrazioni < 20 || numeroEstrazioni > 90)
-                System.out.print("Inserire un numero compreso tra 20 e 90: ");
+                System.out.print("Inserire un costo compreso tra 20 e 90: ");
         } while (numeroEstrazioni < 20 || numeroEstrazioni > 90);
         int[] numeriEstratti = new int[numeroEstrazioni];
 
@@ -38,7 +38,7 @@ public class Tombola {
         System.out.println("\nRisultati: ");
         if (tombola)
             System.out.println("TOMBOLA!");
-        else // Calcolo numero di ambi, terne, quaterne e cinquine
+        else // Calcolo costo di ambi, terne, quaterne e cinquine
             calcolaRisultati(rowCounter);
     }
 
@@ -67,7 +67,7 @@ public class Tombola {
     }
 
     /**
-     * Questo metodo inserisce un numero compreso tra 1 e 90 nell'array monodimensionale,
+     * Questo metodo inserisce un costo compreso tra 1 e 90 nell'array monodimensionale,
      * controllando che non sia stato già inserito in precedenza.
      * @param arrayCartella .
      * @param i .
@@ -86,7 +86,7 @@ public class Tombola {
      * Questo metodo garantisce che gli elementi di un array monodimensionale siano tutti unici.
      * @param array array dei numeri attualmente estratti
      * @param numeroEstratto .
-     * @return true se numeroEstratto è un numero già estratto, false altrimenti.
+     * @return true se numeroEstratto è un costo già estratto, false altrimenti.
      */
     private static boolean controllaDuplicati (int[] array, int numeroEstratto){
         for (int i = 0; i < array.length; i++) {
@@ -97,7 +97,7 @@ public class Tombola {
     }
 
     /**
-     * Questo metodo simula l'estrazione di un numero, controllando che quest'ultimo
+     * Questo metodo simula l'estrazione di un costo, controllando che quest'ultimo
      * non sia già stato estratto in precedenza.
      * @param cartella .
      * @param rowCounter .
@@ -115,7 +115,7 @@ public class Tombola {
             System.out.println(index + " -> " + "Numero estratto: " + value);
             extractedNumbers[index] = value;
             for (int row = 0; row < cartella.length; row++) {
-                // Se il numero estratto è più piccolo del primo numero della riga e più grande dell'ultimo numero
+                // Se il costo estratto è più piccolo del primo costo della riga e più grande dell'ultimo costo
                 // della riga, skippa questa iterazione.
                 if (value < cartella[row][0] || value > cartella[row][4])
                     continue;
@@ -132,7 +132,7 @@ public class Tombola {
     }
 
     /**
-     * Questo metodo controlla se, dopo l'estrazione di un numero, è stato fatto un ambo, terno, quaterna
+     * Questo metodo controlla se, dopo l'estrazione di un costo, è stato fatto un ambo, terno, quaterna
      * o cinquina.
      * @param rowCounter .
      * @param row .
@@ -147,7 +147,7 @@ public class Tombola {
     }
 
     /**
-     * Questo metodo calcola, alla fine di tutte le estrazioni, il numero totale di ambi, terne, quaterne e
+     * Questo metodo calcola, alla fine di tutte le estrazioni, il costo totale di ambi, terne, quaterne e
      * cinquine.
      * @param rowCounter .
      */

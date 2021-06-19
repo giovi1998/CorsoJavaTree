@@ -16,6 +16,7 @@ class Solution {
             vet=shiftaADestra();
             vet[0]=temp;
         }
+        System.out.println();
 
     }
     public int [] shiftaADestra ()
