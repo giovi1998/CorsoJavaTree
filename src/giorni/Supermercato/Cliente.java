@@ -32,13 +32,7 @@ public class Cliente implements Comparable<Cliente> {
     }
 
     public int compareTo(Cliente cliente) {
-        if (eta.equals(cliente.getEta())) {
-            return 0;
-        } else if (eta < cliente.getEta()) {
-            return 1;
-        } else {
-            return -1;
-        }
+        return cliente.getEta().compareTo(eta);
     }
 
     @Override
