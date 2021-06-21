@@ -61,12 +61,12 @@ public class Autore extends HashSet<Autore> {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Autore autore = (Autore) o;
-        return codiceAutore.equals(autore.codiceAutore) && nome.equals(autore.nome) && cognome.equals(autore.cognome) && libriDelAutore.equals(autore.libriDelAutore);
+        return codiceAutore.equals(autore.codiceAutore) && nome.equals(autore.nome) && cognome.equals(autore.cognome);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), codiceAutore, nome, cognome, libriDelAutore);
+        return Objects.hash(super.hashCode(), codiceAutore, nome, cognome);
     }
 
     @Override
