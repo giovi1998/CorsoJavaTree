@@ -7,7 +7,7 @@ public class Autore extends HashSet<Autore> {
     String nome;
     String cognome;
     //dico che voglio un hashSet di Libro
-    Set<Libro> libriDelAutore = new HashSet<Libro>();
+    Set<Libro> libriDelAutore = new TreeSet<>();
 
     public Autore(String codiceAutore, String nome, String cognome) {
         this.codiceAutore = codiceAutore;
@@ -74,6 +74,11 @@ public class Autore extends HashSet<Autore> {
         return "nome='" + nome + '\'' +
                 ", libriDelAutore=" + libriDelAutore +
                 '}';
+    }
+    public void stampaLibri(){
+        for (Libro i :libriDelAutore) {
+            System.out.println(i);
+        }
     }
 
 

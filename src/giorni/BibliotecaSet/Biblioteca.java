@@ -12,9 +12,9 @@ public class Biblioteca {
             autori.add(autore);
             autore.insertLibro(libro);
 
-        } else if(autori.contains(autore)) {
+        } else if (contains(autore)) {
             autore.insertLibro(libro);
-        }else{
+        } else {
             autori.add(autore);
             autore.insertLibro(libro);
         }
@@ -45,21 +45,22 @@ public class Biblioteca {
     }
 
     public boolean contains(Autore autore) {
-        for (Autore i : autori) {
-            if(i.equals(autore))return true;
-        }
-        return false;
+        return autori.contains(autore);
     }
 
     public boolean contains(String idLibro) {
         for (Autore i : autori) {
-            for (Libro j :i.getLibri()) {
-                if(j.getIdLibro().equals(idLibro) || j.getTitoloLibro().equals(idLibro))return true;
+            for (Libro j : i.getLibri()) {
+                if (j.getIdLibro().equals(idLibro) || j.getTitoloLibro().equals(idLibro)) return true;
             }
 
         }
         return false;
     }
 
+    public void stampaLibri(Autore autore) {
+        if (contains(autore)) autore.stampaLibri();
+        else System.out.println("non ho trovato l'autore "+autore);
+    }
 }
 

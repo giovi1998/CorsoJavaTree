@@ -46,6 +46,11 @@ public class Main {
                 "George",
                 "Orwell"
         );
+        Autore a3 = new Autore(
+                "aaabbb",
+                "Giovanni",
+                "Orwell"
+        );
 
         library.removeBook(b);
 
@@ -61,12 +66,15 @@ public class Main {
                         "eventi che portarono alla Rivoluzione russa e successivamente all'era staliniana " +
                         "dell'Unione sovietica"
         );
+        Libro b5 = new Libro(
+                "454245",
+                "aaa",
+                "La fattoria "
+        );
         library.insertBook(a2, b4);
+        library.insertBook(a2, b5);
 
-
-        System.out.println(library.contains(b4));
-        System.out.println(library.contains("454545"));
-        System.out.println(library.contains("La fattoria degli animali"));
+        library.stampaLibri(a2);
         System.out.println(library);
     }
 }

@@ -9,8 +9,8 @@ Ogni Autore possiede un codice (univoco), un nome, un cognome e una lista di Lib
 Realizzare i metodi della classe Biblioteca che permettano le seguenti azioni:
 - inserimento di un Libro FATTO
 - cancellazione di un Libro FATTO
-- ricerca di un Libro a partire da codice, titolo o Autore
+- ricerca di un Libro a partire da codice, titolo o Autore FATTO
 - stampa di “titolo: sinossi” di tutti i titoli di un determinato Autore, ordinati
-  in ordine lessicografico ascendente (in base al titolo) usando "\n" come carattere separatore
+  in ordine lessicografico ascendente (in base al titolo) usando "\n" come carattere separatoreFatto
 
 Suggerimento: Effettuare l’override dei metodi equals, hashcode e toString dove necessario

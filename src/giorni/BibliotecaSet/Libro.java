@@ -1,9 +1,9 @@
 package giorni.BibliotecaSet;
 
-import java.util.HashSet;
 import java.util.Objects;
+import java.util.TreeSet;
 
-public class Libro extends HashSet<Autore>{
+public class Libro extends TreeSet<Libro> implements Comparable<Libro>{
     String idLibro;
     String titoloLibro;
     String sinosi;
@@ -45,10 +45,21 @@ public class Libro extends HashSet<Autore>{
         return Objects.hash(super.hashCode(), idLibro, titoloLibro, sinosi);
     }
 
+
+
+
+
     @Override
     public String toString() {
         return "Libro{" +
                 "titoloLibro='" + titoloLibro + '\'' +
+                "sinosi" + sinosi+
                 '}';
+    }
+
+
+    @Override
+    public int compareTo(Libro libro) {
+        return getTitoloLibro().compareTo(libro.getTitoloLibro());
     }
 }
