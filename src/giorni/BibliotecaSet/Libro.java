@@ -1,6 +1,9 @@
 package giorni.BibliotecaSet;
 
-public class Libro{
+import java.util.HashSet;
+import java.util.Objects;
+
+public class Libro extends HashSet<Autore> {
     String idLibro;
     String titoloLibro;
     String sinosi;
@@ -35,6 +38,19 @@ public class Libro{
         this.sinosi = sinosi;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Libro autores = (Libro) o;
+        return idLibro.equals(autores.idLibro) && titoloLibro.equals(autores.titoloLibro) && sinosi.equals(autores.sinosi);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), idLibro, titoloLibro, sinosi);
+    }
 
     @Override
     public String toString() {
