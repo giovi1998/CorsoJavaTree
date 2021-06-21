@@ -63,8 +63,10 @@ public class Main {
         );
         library.insertBook(a2, b4);
 
-        System.out.println (library.contains(b4));
-        System.out.println (library.contains(b1));
+
+        System.out.println(library.contains(b4));
+        System.out.println(library.contains("454545"));
+        System.out.println(library.contains("La fattoria degli animali"));
         System.out.println(library);
     }
 }

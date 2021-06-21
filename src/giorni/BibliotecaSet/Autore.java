@@ -15,6 +15,42 @@ public class Autore extends HashSet<Autore> {
         this.cognome = cognome;
     }
 
+    public Set<Libro> getLibri    () {
+        return libriDelAutore;
+    }
+
+    public String getCodiceAutore() {
+        return codiceAutore;
+    }
+
+    public void setCodiceAutore(String codiceAutore) {
+        this.codiceAutore = codiceAutore;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
+    }
+
+    public Set<Libro> getLibriDelAutore() {
+        return libriDelAutore;
+    }
+
+    public void setLibriDelAutore(Set<Libro> libriDelAutore) {
+        this.libriDelAutore = libriDelAutore;
+    }
+
     public void insertLibro(Libro libro) {
         libriDelAutore.add(libro);
     }

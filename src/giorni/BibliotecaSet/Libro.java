@@ -3,16 +3,10 @@ package giorni.BibliotecaSet;
 import java.util.HashSet;
 import java.util.Objects;
 
-public class Libro extends HashSet<Autore> {
+public class Libro extends HashSet<Autore>{
     String idLibro;
     String titoloLibro;
     String sinosi;
-
-    public Libro(String idLibro, String titoloLibro, String sinosi) {
-        this.idLibro = idLibro;
-        this.titoloLibro = titoloLibro;
-        this.sinosi = sinosi;
-    }
 
     public String getIdLibro() {
         return idLibro;
@@ -30,11 +24,9 @@ public class Libro extends HashSet<Autore> {
         this.titoloLibro = titoloLibro;
     }
 
-    public String getSinosi() {
-        return sinosi;
-    }
-
-    public void setSinosi(String sinosi) {
+    public Libro(String idLibro, String titoloLibro, String sinosi) {
+        this.idLibro = idLibro;
+        this.titoloLibro = titoloLibro;
         this.sinosi = sinosi;
     }
 
@@ -46,6 +38,7 @@ public class Libro extends HashSet<Autore> {
         Libro autores = (Libro) o;
         return idLibro.equals(autores.idLibro) && titoloLibro.equals(autores.titoloLibro) && sinosi.equals(autores.sinosi);
     }
+
 
     @Override
     public int hashCode() {
