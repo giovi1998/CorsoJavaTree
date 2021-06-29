@@ -13,7 +13,7 @@ public class Generatore {
     public int [] addElementi(int [] array){
         Random rand = new Random();
         for(int i = 0; i < array.length; i++){
-            array[i] = rand.nextInt(10);
+            array[i] = rand.nextInt(10)-10;
             if(array[i] < 5){
                 array[i] = (-1)*array[i];
             }

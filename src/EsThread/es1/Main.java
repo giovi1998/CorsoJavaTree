@@ -9,14 +9,8 @@ public class Main {
         Sommatore s1 = new Sommatore(array,0,500000);
         Sommatore s2 = new Sommatore(array,500000,1000000);
         s1.start();
-        int n=500;
-        for (int i = 0; i <n ; i++) {
-
-            System.out.println("ciao");
-        }
-
         s2.start();
-        
+
 
         try {
             s1.join();
@@ -25,6 +19,8 @@ public class Main {
             e.printStackTrace();
         } ;
 
+        System.out.println(s1.somma);
+        System.out.println(s2.somma);
         int sommaFinale = s1.somma+ s2.somma;
         System.out.println(sommaFinale);
     }
