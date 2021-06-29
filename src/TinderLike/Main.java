@@ -14,8 +14,6 @@ public class Main {
         tinder.aggiungiUtente(utente2,"daniele");
         tinder.aggiungiUtente(utente3,"yari");
 
-
-
         System.out.println(utente1.getInteressi());
         System.out.println(utente2.getInteressi());
         System.out.println(utente3.getInteressi());

@@ -1,4 +1,4 @@
-package giorni.EsercizioLet;
+package giorni.EserciziLeetcode.EsercizioLet;
 //https://leetcode.com/problems/rotate-array/
 
 class Solution {

@@ -74,6 +74,7 @@ public class Main {
         library.insertBook(a2, b4);
         library.insertBook(a2, b5);
 
+        System.out.println(library.contains(a2));
         library.stampaLibri(a2);
         System.out.println(library);
     }
