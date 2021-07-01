@@ -95,4 +95,4 @@ fabric.properties
 hs_err_pid*
 
 #testi che non ti interessano
-/src/EsThread/letturaFile/*.txt
+.idea/**/letturaFile/*.txt
