@@ -1,7 +1,8 @@
 package stream.es2;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.TreeMap;
 
 public class Utente<compareTo>  implements Comparable<Utente> {
     private String nome;
@@ -10,12 +11,14 @@ public class Utente<compareTo>  implements Comparable<Utente> {
     private String codiceFiscale;
     private String indirizzo;
 
-    public Utente(String nome, String cognome, int eta, String codiceFiscale, String indirizzo) {
+    private List<String> figli= new ArrayList<>();
+    public Utente(String nome, String cognome, int eta, String codiceFiscale, String indirizzo,List<String> figli) {
         this.nome = nome;
         this.cognome = cognome;
         this.eta = eta;
         this.codiceFiscale = codiceFiscale;
         this.indirizzo = indirizzo;
+        this.figli= figli;
     }
 
     public int getEta() {
@@ -24,6 +27,42 @@ public class Utente<compareTo>  implements Comparable<Utente> {
 
     public void setEta(int eta) {
         this.eta = eta;
+    }
+
+    public List<String> getFigli() {
+        return figli;
+    }
+
+    public String getCodiceFiscale() {
+        return codiceFiscale;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getIndirizzo() {
+        return indirizzo;
+    }
+
+    public void setIndirizzo(String indirizzo) {
+        this.indirizzo = indirizzo;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
+    }
+
+    public void setCodiceFiscale(String codiceFiscale) {
+        this.codiceFiscale = codiceFiscale;
     }
 
     @Override
