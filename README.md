@@ -2,7 +2,6 @@
 <img src="treeschool_header.png"> 
 
 Di 240 ore cose utili:
-REPO: https://github.com/Backend-Developer-School-Tree/Corso-Java-backend-2021-01
 -Slide su google Drive
 -Presente solo codice
 
